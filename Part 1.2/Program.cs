@@ -94,7 +94,30 @@ class CyberSecurityBot
 
     static void ChatbotLoop(string userName)
     {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("Chat: Ask me anything about cybersecurity or type 'exit' to quit.");
+        Console.ResetColor();
 
+        while (true)
+        {
+            Console.Write(" You: ");
+            string userInput = Console.ReadLine()?.Trim().ToLower();
+
+            if (string.IsNullOrEmpty(userInput))
+            {
+                PrintSlowly($"Chat: {userName}, please enter a valid question.", ConsoleColor.Red);
+                continue;
+            }
+
+            if (userInput == "exit")
+            {
+                PrintSlowly($"Chat: Goodbye, {userName}! Stay safe online. ", ConsoleColor.Red);
+                break;
+            }
+
+            string response = GetResponse(userInput, userName);
+            PrintSlowly($" {userName}, {response}", ConsoleColor.Cyan);
+        }
 
     }
 
@@ -126,5 +149,56 @@ class CyberSecurityBot
                 return "I didn’t quite understand that. Could you rephrase?";
         }
     }
-}
+
+    static void PrintSlowly(string message, ConsoleColor color)
+    {
+        Console.ForegroundColor = color;
+        foreach (char c in message)
+        {
+            Console.Write(c);
+            Thread.Sleep(20);
+        }
+        Console.WriteLine();
+        Console.ResetColor();
+    }
+
+    static void PrintBox(string message)
+    {
+        int boxWidth = message.Length + 6;
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine(new string('═', boxWidth));
+        Console.WriteLine($"  {message}  ");
+        Console.WriteLine(new string('═', boxWidth));
+        Console.ResetColor();
+    }
+
+    static void DrawBox(string message, ConsoleColor color)
+    {
+        Console.ForegroundColor = color;
+        Console.WriteLine("\n" + new string('═', message.Length + 4));
+        Console.WriteLine($"  {message}  ");
+        Console.WriteLine(new string('═', message.Length + 4));
+        Console.ResetColor();
+    }
+
+    static void DrawDivider()
+    {
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        Console.WriteLine(new string('─', 50));
+        Console.ResetColor();
+    }
+
+    static void PrintMessage(string message, ConsoleColor color)
+    {
+        Console.ForegroundColor = color;
+        foreach (char c in message)
+        {
+            Console.Write(c);
+            Thread.Sleep(20);
+        }
+        Console.WriteLine();
+        Console.ResetColor();
+    }
+
+};
 
