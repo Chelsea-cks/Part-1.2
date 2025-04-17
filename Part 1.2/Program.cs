@@ -68,7 +68,7 @@ class CyberSecurityBot
 
     static void PlayVoiceGreeting()
     {
-        string audioFilePath = "C:\\Users\\Dell 3550\\source\\repos\\Part1.1\\greetings.wav";
+        string audioFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "greetings.wav");
 
         try
         {
@@ -79,7 +79,7 @@ class CyberSecurityBot
                 outputDevice.Play();
                 while (outputDevice.PlaybackState == PlaybackState.Playing)
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(50);
                 }
             }
         }
@@ -120,9 +120,12 @@ class CyberSecurityBot
         }
 
     }
-
+   
     static string GetResponse(string input, string userName)
     {
+        if (IsNumeric(input))
+            return "Invalid input. Please ask a question using words, not numbers.";
+
         if (input.Contains("password"))
             return "a strong password should have at least 12 characters, including uppercase, lowercase, numbers, and special symbols.";
 
@@ -150,6 +153,12 @@ class CyberSecurityBot
         }
     }
 
+    //method to check if input is numeric
+    static bool IsNumeric(string input)
+    {
+        return double.TryParse(input, out _);
+    }
+
     static void PrintSlowly(string message, ConsoleColor color)
     {
         Console.ForegroundColor = color;
@@ -162,16 +171,7 @@ class CyberSecurityBot
         Console.ResetColor();
     }
 
-    static void PrintBox(string message)
-    {
-        int boxWidth = message.Length + 6;
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine(new string('═', boxWidth));
-        Console.WriteLine($"  {message}  ");
-        Console.WriteLine(new string('═', boxWidth));
-        Console.ResetColor();
-    }
-
+    
     static void DrawBox(string message, ConsoleColor color)
     {
         Console.ForegroundColor = color;
