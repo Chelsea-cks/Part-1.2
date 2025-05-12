@@ -93,13 +93,13 @@ namespace CyberSecurityBot
         {
             if (IsNumeric(input))
                 return "Invalid input. Please ask a question using words, not numbers.";
-
-            foreach (var mood in sentimentResponses)
+             
+            foreach (var mood in sentimentResponses) //this will detect moods/sentiment
             {
                 if (input.Contains(mood.Key))
                     return sentimentResponses[mood.Key];
             }
-
+            //this handles topic interest input
             if (input.Contains("interested in"))
             {
                 string[] parts = input.Split(new[] { "interested in" }, StringSplitOptions.None);
