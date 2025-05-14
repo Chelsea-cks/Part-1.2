@@ -16,6 +16,33 @@ namespace CyberSecurityBot
             { "phishing", "Be cautious of emails asking for personal information. Scammers often disguise themselves as trusted organisations." }
         };
 
+        static List<string> passwordTips = new List<string>
+        {
+            "Use a mix of letters, numbers, and symbols in your password.",
+            "Avoid using personal info like birthdays or pet names in passwords.",
+            "Use a password manager to generate and store strong passwords.",
+            "Change your passwords regularly and don’t reuse old ones.",
+            "Enable two-factor authentication wherever possible."
+        };
+
+        static List<string> scamTips = new List<string>
+        {
+            "Don’t click on links from unknown senders.",
+            "If it sounds too good to be true, it probably is — be suspicious of online offers.",
+            "Always verify the sender's email address before taking action.",
+            "Watch out for urgent language asking you to act immediately.",
+            "Never share personal or financial information via email or SMS."
+        };
+
+        static List<string> privacyTips = new List<string>
+        {
+            "Review app permissions on your phone and remove access you don’t need.",
+            "Use privacy-focused browsers or search engines like DuckDuckGo.",
+            "Avoid posting personal information publicly on social media.",
+            "Use strong passwords and avoid saving login info in public browsers.",
+            "Turn off location tracking when it’s not necessary."
+        };
+
         static List<string> phishingTips = new List<string>
         {
             "Avoid clicking suspicious links in emails.",
@@ -122,11 +149,29 @@ namespace CyberSecurityBot
                 {
                     currentTopic = keyword;
 
-                    // Optionally randomize phishing responses
+                    // Personalize if user previously mentioned interest
+                    if (userMemory.ContainsKey("interest") && keyword == userMemory["interest"])
+                    {
+                        return $"Since you're interested in {keyword}, here's a tip: {keywordResponses[keyword]}";
+                    }
+
+                    // Random tips per topic
+                    Random rand = new Random();
                     if (keyword == "phishing")
                     {
-                        Random rand = new Random();
                         return phishingTips[rand.Next(phishingTips.Count)] + " Also: " + keywordResponses[keyword];
+                    }
+                    else if (keyword == "password")
+                    {
+                        return passwordTips[rand.Next(passwordTips.Count)];
+                    }
+                    else if (keyword == "scam")
+                    {
+                        return scamTips[rand.Next(scamTips.Count)];
+                    }
+                    else if (keyword == "privacy")
+                    {
+                        return privacyTips[rand.Next(privacyTips.Count)];
                     }
 
                     return keywordResponses[keyword];
