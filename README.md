@@ -1,10 +1,9 @@
-1. Open the Project in Visual Studio 2022
-Launch Visual Studio.
-
-Click Open a Project or Solution.
-
-Navigate to the folder where you downloaded the project and select the .sln file.
-
-2. Run the application
-   Click the green arrow button to build the app and run it.
-
+How to Run the Project in Visual Studio 2022
+  
+   1.)Open the Project
+      Launch Visual Studio 2022.
+      Click on “Open a project or solution”.
+      Navigate to the project folder and select the .sln (solution) file.
+      
+   2.)Run the Application
+      Click the green play button (▶️) or press F5 to build and run the application.
